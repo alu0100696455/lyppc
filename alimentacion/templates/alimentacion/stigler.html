@@ -1,52 +1,77 @@
-<h1>Problema de la dieta de Stigler</h1>
+{% load staticfiles %}
+<html>
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
 
-<h2>Resultado</h2>
-{% if results_list %}
-  <ul>
-  {% for result in results_list %}
-    <p>{{ result }}</p>
-  {% endfor %}
-  </ul>
-  </br>
-  <b>Precio óptimo anual: {{ optimal_annual_price }}</b>
-{% else %}
-    <p>{{ error }}</p>
-{% endif %}
-</br>
-{% if times|length > 1 %}
-  <b>Tiempo medio: {{ mean }}</b>
-  <ul>
-    {% for time in times %}
-      <p>Tiempo {{ forloop.counter }}: {{ time }}</p>
-    {% endfor %}
-  </ul>
-{% else %}
-  <b>Tiempo: {{ mean }}</b>
-{% endif %}
+  <body>
+    <div class="col-md-12">
+      <h1>Problema de la dieta de Stigler</h1>
+      <div class="col-md-12">
+        <h2>Resultado</h2>
+        {% if results_list %}
+          <ul>
+          {% for result in results_list %}
+            <p>{{ result }}</p>
+          {% endfor %}
+          </ul>
+          </br>
+          <b>Precio óptimo anual: {{ optimal_annual_price }}</b>
+        {% else %}
+            <p>{{ error }}</p>
+        {% endif %}
+        </br>
+        {% if times|length > 1 %}
+          <b>Tiempo medio: {{ mean }}</b>
+          <ul>
+            {% for time in times %}
+              <p>Tiempo {{ forloop.counter }}: {{ time }}</p>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <b>Tiempo: {{ mean }}</b>
+        {% endif %}
+      </div>
+    </div>
 
-<h2>Muestreo</h2>
-<b>Cantidad nutrientes mínimos diarios recomendados (hombre adulto):</b>
-  <ul>
-    {% for min in nutrient_minimus %}
-      <b>{{ min.0 }}:</b> <span>{{min.1 }}</span>
-    {% endfor %}
-  </ul>
-</br>
-<table>
-  <tr>
-    {% for e in columns_names %}
-      <th>{{ e }}</th>
-    {% endfor %}
-  </tr>
-  {% for food in foods %}
-  <tr>
-    {% for e in food %}
-      {% if forloop.counter > 1 %}
-        <td>{{ e|floatformat:2 }}</td>
-      {% else %}
-        <td>{{ e }}</td>
-      {% endif %}
-    {% endfor %}
-  </tr>
-  {% endfor %}
-</table>
+    <div class="col-md-12">
+      <div class="col-md-12" style="margin-bottom: 15px">
+        <h2>Muestreo</h2>
+        <b>Cantidad nutrientes mínimos diarios recomendados (hombre adulto):</b>
+          <div class="col-md-12">
+            {% for min in nutrient_minimus %}
+              <b>{{ min.0 }}:</b> <span>{{min.1 }}</span>
+            {% endfor %}
+          </div>
+        </br>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            {% for e in columns_names %}
+              <th>{{ e }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for food in foods %}
+          <tr>
+            {% for e in food %}
+              {% if forloop.counter > 1 %}
+                <td>{{ e|floatformat:2 }}</td>
+              {% else %}
+                <td>{{ e }}</td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
